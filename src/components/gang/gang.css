@@ -1,0 +1,40 @@
+.gang {
+    background-color: var(--second-color);
+    color: var(--second-font-color);
+    padding: 0 15px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+    .gang-header {
+        padding: 10px 15px;
+        position: relative;
+        margin: 0 -15px;
+        background-color: rgba(0,0,0,.2);
+    }
+
+        .gang-header-title {
+            margin: 0 0 5px;
+            font-size: 20px;
+        }
+
+        .gang-header-extratext {
+            margin: 0;
+            font-size: 14px;
+            font-style: italic;
+            opacity: .7;
+            font-weight: 100;
+        }
+
+    .gang-container {
+        padding: 0;
+        height: 0;
+        overflow: hidden;
+        transition: .3s;
+        box-sizing: border-box;
+    }
+    .opened .gang-container {
+        height: auto;
+        padding: 15px 0;
+    }

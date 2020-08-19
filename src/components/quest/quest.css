@@ -1,0 +1,46 @@
+.quest{
+    background-color: var(--third-color);
+    border-radius: 5px;
+    padding: 0 10px;
+    transition:.3s;
+    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+}
+.quest:last-child {
+    margin-bottom: 0;
+}
+.opened.quest {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    z-index: 10;
+    
+}
+    .quest-header {
+        position: relative;
+        height: 80px;
+        padding: 10px 0;
+        box-sizing: border-box;
+        display: flex;
+    }
+        .quest-header-state {
+            width: 60px;
+            height: 200px;
+            margin-left: auto;
+            background-color: blueviolet;
+            transform: rotate(-22deg);
+            position: absolute;
+            right: -47px;
+            top: -25px;
+            z-index: 3;
+        }
+        .quest-header-performer {
+            width: 60px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin-left: auto;
+            z-index: 4;
+        }
