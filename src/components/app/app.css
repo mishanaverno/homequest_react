@@ -7,14 +7,131 @@
     --second-font-color: #fff;
     --third-font-color: #000;
     --fourth-font-color: #000;
+
+    --green: #66B869;
+    --red: #CC5858;
+    --yellow: #E8BE54;
+    --purple: #f6416c;
+    --blue: #098d82;
+
 }
 
 body,
 html,
-#root{
+#root,
+#app{
     padding: 0;
     margin: 0;
     height: 100%;
+}
+
+#root{
+    background-color: var(--first-color);
+    color: var(--first-font-color);
+}
+
+#app{
     font-family: 'Fira Code';
     overflow: hidden;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.header-title {
+    margin: 0 0 5px;
+    font-size: 20px;
+}
+
+.header-extratext {
+    margin: 0;
+    font-size: 14px;
+    font-style: italic;
+    opacity: .7;
+    font-weight: 100;
+}
+
+.form-header {
+    padding: 20px 0;
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+.form-container>* {
+    margin-bottom: 20px;
+}
+.form-container>*:last-child{
+    margin-bottom: 0;
+}
+.form-row {
+    display: flex;
+    flex-direction: column;
+}
+.form-row label{
+    margin-bottom: 5px;
+}
+.form-group {
+    display: flex;
+}
+.form-group>* {
+    flex-grow: 1;
+    flex-basis: 10px;
+}
+.form-group>*:not(:last-child) {
+    margin-right: 3px;
+}
+.form-group>*:not(:last-child):not(:first-child) {
+    border-radius: 0;
+}
+.form-group>*:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-group>*:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+input{
+    padding: 10px 5px;
+    border-radius: 5px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: transparent;
+    font-family: "Fira Code";
+    transition:.3s;
+}
+input:focus {
+    border-color: rgba(0,0,0,.4);
+    outline: none;
+}
+.btn {
+    position: relative;
+    top: 0;
+    padding: 10px;
+    border-radius: 5px;
+    border-color: #fff;
+    border-style: solid;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "Fira Code";
+    transition: .3s;
+    box-shadow: 0 6px 0 -2px #aaa, 0 6px 0 0 #fff;
+}
+.btn:hover,
+.btn:focus {
+    outline: none;
+    box-shadow: 0 3px 0 0px #fff;
+    top: 3px;
+}
+.btn:focus {
+
+}
+.btn.primary {
+    color: #fff;
+    background-color: var(--second-color);
+}
+.btn.success {
+    color: #fff;
+    background-color: var(--green);
 }

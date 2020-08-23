@@ -19,7 +19,7 @@ export default class Gang extends React.Component {
         let classNames = 'gang ';
         if (this.state.opened) classNames += 'opened ';
 
-        const {quests, name} = this.props;
+        const {quests = [], name} = this.props;
         const questElements = quests.map((quest) => {
             return (
                 <Quest { ... quest} key={quest.id}/>
@@ -28,8 +28,8 @@ export default class Gang extends React.Component {
         return (
             <div className={classNames}>
                 <div className="gang-header" onClick={this.toggleOpened}>
-                    <p className="gang-header-title">{name}</p>
-                    <p className="gang-header-extratext">adiitional text</p>   
+                    <p className="header-title">{name}</p>
+                    <p className="header-extratext">adiitional text</p>   
                 </div>
                 <div className="gang-container">
                     {questElements}
