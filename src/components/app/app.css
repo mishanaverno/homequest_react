@@ -1,18 +1,20 @@
 :root{
-    --first-color: #382933;
-    --second-color: #3b5249;
-    --third-color: #519872;
-    --fourth-color: #a4b494;
+    --first-color: #413c69;
+    --second-color: #4a47a3;
+    --third-color: #ad62aa;
+    --fourth-color: #eab9c9;
     --first-font-color: #fff;
     --second-font-color: #fff;
     --third-font-color: #000;
     --fourth-font-color: #000;
 
-    --green: #66B869;
-    --red: #CC5858;
-    --yellow: #E8BE54;
-    --purple: #f6416c;
-    --blue: #098d82;
+    --green: #66B869; /*complete*/
+    --red: #CC5858; /*pending*/
+    --reward: #ffa41b; /*reward*/
+    --purple: #f6416c; /**/
+    --blue: #00909e; /*progress*/
+    --violet: #95389e; /**/
+    --gray: #f2f6f5; /*opened*/
 
 }
 
@@ -33,8 +35,18 @@ html,
 #app{
     font-family: 'Fira Code';
     overflow: hidden;
-    max-width: 1000px;
-    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+.app-container {
+    flex-basis: 50%;
+    flex-grow: 1;
+    overflow: hidden;
 }
 
 .header-title {

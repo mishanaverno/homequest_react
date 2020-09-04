@@ -148,5 +148,6 @@
     "plugins": {
       "cordova-plugin-whitelist": {}
     }
-  }
+  },
+  "proxy": "http://localhost:4000"
 }

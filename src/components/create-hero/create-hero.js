@@ -2,17 +2,18 @@ import React from 'react';
 import AppFrame from '../app-frame';
 import { FRAMES } from '../app/app';
 
-export default class Login extends AppFrame {
+export default class CreateHero extends AppFrame {
 
     state = {
-        login: "bob",
-        password: "777"
+        name: "",
+        password: "",
+        avatar: ""
     }    
 
-    onChangeLogin = (e) => {
+    onChangeName = (e) => {
         const { value } = e.target;
         this.setState({
-            login: value
+            name: value
         });
     }
     onChangePassword = (e) => {
@@ -21,30 +22,26 @@ export default class Login extends AppFrame {
             password: value
         });
     }
-
-    onOkClick = (e) => {
-        const { login , password } = this.state;
-        this.props.login(login, password);
+    onCancelClick = (e) => {
+        this.props.openFrame(FRAMES.LOGIN);
     }
-    onCreateNewClick = (e) => {
-        this.props.openFrame(FRAMES.CREATE_HERO);
-    }
-    render() {
-        const { login , password } =this.state;
+    render(){
+        
+        const { name, password } = this.state;
 
         return this.frame(
             <div className="form">
                 <div className="form-header">
-                    <p className="header-title">Please Login</p>
+                    <p className="header-title">Create hero</p>
                     <p className="header-extratext">Enter your login and password.</p>
                 </div>
                 <div className="form-container">
                     <div className="form-row">
-                        <label>Login</label>
+                        <label>Name</label>
                         <input 
                             type="text" 
-                            value={login}
-                            onChange={this.onChangeLogin}
+                            value={name}
+                            onChange={this.onChangeName}
                             />
                     </div>
                     <div className="form-row">
@@ -57,8 +54,7 @@ export default class Login extends AppFrame {
                     </div>
                     <div className="form-group ">
                         <button className="btn success" onClick={this.onOkClick}>Ok</button>
-                        <button className="btn primary">Forgot</button>
-                        <button className="btn primary" onClick={this.onCreateNewClick}>Create new</button>
+                        <button className="btn reject" onClick={this.onCancelClick}>Cancel</button>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,10 @@
+.panel-btn {
+    border: 1px solid var(--first-font-color);
+    background-color: transparent;
+    color: var(--first-font-color);
+    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+    margin: 5px 5px;
+}

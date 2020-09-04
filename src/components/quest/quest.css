@@ -12,11 +12,14 @@
 }
 .opened.quest {
     position: fixed;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 70px;
     z-index: 10;
+    margin-bottom: 0;
+    border-radius: 0;
+    padding-top: 20px;
     
 }
     .quest-header {
@@ -26,21 +29,53 @@
         box-sizing: border-box;
         display: flex;
     }
+        .quest-header-info {
+            display: flex;
+            flex-direction: column;
+        }
+            .quest-reward {
+                margin-top: auto;
+                font-size: 14px;
+                font-style: italic;
+            }
+                .quest-reward-value {
+                    color: var(--reward);
+                    text-shadow: 0 0 2px #000;
+                    font-weight: 600;
+                    font-size: 18px;
+                    font-style: normal;
+                }
         .quest-header-state {
             width: 60px;
-            height: 200px;
+            height: 260px;
             margin-left: auto;
-            background-color: blueviolet;
             transform: rotate(-22deg);
             position: absolute;
             right: -47px;
-            top: -25px;
+            top: -53px;
             z-index: 3;
         }
-        .quest-header-performer {
+        .quest-header-state.open{
+            background-color: var(--gray);
+        }
+        .quest-header-state.progress{
+            background-color: var(--blue);
+        }
+        .quest-header-state.pending{
+            background-color: var(--red);
+        }
+        .quest-header-state.complete{
+            background-color: var(--green);
+        }
+        
+        .quest-header-persons {
             width: 60px;
             background-color: #fff;
             border-radius: 50%;
             margin-left: auto;
             z-index: 4;
         }
+    .quest:not(.opened) .quest-container {
+        
+        display: none;
+    }

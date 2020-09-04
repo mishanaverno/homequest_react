@@ -19,10 +19,14 @@ export default class Gang extends React.Component {
         let classNames = 'gang ';
         if (this.state.opened) classNames += 'opened ';
 
-        const {quests = [], name} = this.props;
+        const {quests = [], name, addToPanel, removefromPanel} = this.props;
         const questElements = quests.map((quest) => {
             return (
-                <Quest { ... quest} key={quest.id}/>
+                <Quest 
+                    { ... quest} 
+                    addToPanel={addToPanel} 
+                    removefromPanel={removefromPanel}
+                    key={quest.id}/>
             );
         });
         return (
