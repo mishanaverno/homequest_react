@@ -1,0 +1,71 @@
+.form-row.reward {
+    margin-bottom: 40px;
+}
+.input-reward-wrapper {
+    display: flex;
+    align-items: center;
+}
+.input-reward-wrapper * {
+    flex-grow: 1;
+    text-align: center;
+}
+.total-reward,
+.standart-reward{
+    color: var(--reward);
+    text-shadow: 0 0 2px #000;
+    font-weight: 600;
+    font-size: 18px;
+    font-style: normal;
+}
+.total-reward{
+    text-align: left;
+}
+.standart-reward{
+    text-align: right;
+}
+
+.input-reward {
+    color: var(--reward);
+    text-shadow: 0 0 2px #000;
+    font-weight: 600;
+    font-size: 18px;
+    font-style: normal;
+    background-color: transparent;
+    flex-grow: 0;
+    width: 100px;
+    border-bottom-color: #fff;
+}
+.input-reward:focus {
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: #fff;
+    background-color: rgba(255,255,255,.1);
+}
+.reward-swiper-container {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+.reward-swiper-wrapper {
+    display: flex;
+    margin-top: 10px;
+}
+.reward-swiper {
+    flex-basis: 50%;
+    flex-grow: 1;
+    margin: auto 10px;
+    height: 3px;
+}
+.reward-swiper-line {
+    background-color: #fff;
+    height: 100%;
+    position: relative;
+}
+.reward-swiper-value {
+    width: 3px;
+    height: 31px;
+    background-color: #fff;
+    top: -14px;
+    position: absolute;
+}

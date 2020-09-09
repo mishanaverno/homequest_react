@@ -75,13 +75,6 @@ html,
 .form-container>*:last-child{
     margin-bottom: 0;
 }
-.form-row {
-    display: flex;
-    flex-direction: column;
-}
-.form-row label{
-    margin-bottom: 5px;
-}
 .form-group {
     display: flex;
 }
@@ -103,19 +96,6 @@ html,
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
-input{
-    padding: 10px 5px;
-    border-radius: 5px;
-    border-width: 3px;
-    border-style: solid;
-    border-color: transparent;
-    font-family: "Fira Code";
-    transition:.3s;
-}
-input:focus {
-    border-color: rgba(0,0,0,.4);
-    outline: none;
-}
 .btn {
     position: relative;
     top: 0;
@@ -129,6 +109,10 @@ input:focus {
     font-family: "Fira Code";
     transition: .3s;
     box-shadow: 0 6px 0 -2px #aaa, 0 6px 0 0 #fff;
+}
+.btn.icon{
+    width: 44px;
+    height: 44px;
 }
 .btn:hover,
 .btn:focus {
@@ -146,4 +130,33 @@ input:focus {
 .btn.success {
     color: #fff;
     background-color: var(--green);
+}
+
+.super-btn {
+    position: relative;
+    top: 0;
+    padding: 15px;
+    border-radius: 5px;
+    border-color: #fff;
+    border-style: solid;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "Fira Code";
+    transition: .3s;
+    box-shadow: 0 6px 0 -2px #aaa, 0 6px 0 0 #fff;
+}
+.super-btn:focus {
+    outline: none;
+    box-shadow: 0 3px 0 0px #fff;
+    top: 3px;
+}
+.super-btn.create-gang {
+    background-color: var(--green);
+    color: #fff;
+}
+
+.super-btn.join-gang {
+    background-color: var(--violet);
+    color: #fff;
 }

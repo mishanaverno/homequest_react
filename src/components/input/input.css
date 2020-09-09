@@ -1,0 +1,16 @@
+input{
+    padding: 10px 5px;
+    border-radius: 5px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: transparent;
+    font-family: "Fira Code";
+    transition:.3s;
+}
+input:focus {
+    border-color: rgba(0,0,0,.4);
+    outline: none;
+}
+.invalid input {
+    background-color: var(--red);
+}

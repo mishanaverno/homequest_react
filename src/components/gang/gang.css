@@ -12,6 +12,15 @@
         position: relative;
         margin: 0 -15px;
         background-color: rgba(0,0,0,.2);
+        display: flex;
+    }
+    .gang-header-info {
+        flex-basis: 50%;
+        flex-grow: 1;
+    }
+    .gang-header-btn {
+        margin-left: auto;
+        padding-left: 20px;
     }
     .gang-container {
         padding: 0;
@@ -24,3 +33,6 @@
         height: auto;
         padding: 15px 0;
     }
+    .gang-header-btn .icon {
+        margin-bottom: 10px;
+    } 

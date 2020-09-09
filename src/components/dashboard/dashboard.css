@@ -4,3 +4,6 @@
     box-sizing: border-box;
     overflow-y: scroll;
 }
+.dashboard-header {
+    margin-bottom: 20px;
+}

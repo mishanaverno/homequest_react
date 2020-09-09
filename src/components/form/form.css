@@ -1,0 +1,16 @@
+.form-row {
+    display: flex;
+    flex-direction: column;
+}
+.form-row label {
+    margin-bottom: 5px;
+    display: flex;
+}
+.form-row label .error{
+    margin-left: auto;
+    color: var(--red);
+    display: none;
+}
+.form-row.invalid label .error{
+    display: inline;
+}

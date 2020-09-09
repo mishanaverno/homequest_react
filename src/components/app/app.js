@@ -3,13 +3,25 @@ import Dashboard from '../dashboard';
 import Login from '../login';
 import Panel from '../panel';
 import CreateHero from '../create-hero';
-import DataProvider from '../../lib/data-provider'
+import CreateGang from '../create-gang';
+import CreateQuest from '../create-quest';
+import DataProvider from '../../lib/data-provider';
 
 export const TOKEN = 'api_token';
 export const FRAMES = {
     LOGIN: 'login',
     DASHBOARD: 'dashboard',
-    CREATE_HERO: 'create-hero'
+    QUEST: 'quest',
+    USER: 'user',
+    PROFILE: 'profile',
+    INVITE: 'invite',
+    JOIN: 'join',
+    CREATE_HERO: 'create-hero',
+    CREATE_GANG: 'create-gang',
+    CREATE_QUEST: 'create-quest',
+    EDIT_HERO: 'edit-hero',
+    EDIT_GANG: 'edit-gang',
+    EDIT_QUEST: 'edit-quest'
 }
 export default class App extends React.Component 
 {   
@@ -20,6 +32,7 @@ export default class App extends React.Component
             
         ]
     }
+    provider = new DataProvider();
     componentDidMount(){
         this.openFrame(FRAMES.DASHBOARD);
     }
@@ -49,56 +62,79 @@ export default class App extends React.Component
         localStorage.removeItem(TOKEN);
         this.openFrame(FRAMES.LOGIN);
     }
-    
-    login = (login, password) => {
-        const provider = new DataProvider();
-        provider.login(login, password).then((response)=>{
-            return this._processResponse({
-                c200: () => {
-                    this._authorized(response.data);
-                    this.openFrame(FRAMES.DASHBOARD);
-                }
-            }, response);
-        })
-    }
-    getData = () => {
-        const provider = new DataProvider();
-        const { api_token = false } = this.state;
-        provider.getDashboard(api_token).then((response)=>{
+    // provider
+    login = (credentials) => {
+        this.provider.login(credentials).then((response)=>{
             return this._processResponse({
                 c200: (r) => {
+                    this._authorized(r.data);
+                    this.openFrame(FRAMES.DASHBOARD);
+                },
+                c403: (r) => {
                     console.log(r)
+                }
+            }, response);
+        });
+    }
+    dashboard = () => {
+        const { api_token = false } = this.state;
+        return this.provider.getDashboard(api_token).then((response)=>{
+            return this._processResponse({
+                c200: (r) => {
+                    return r;
                 },
                 c403: (r) => {
                     console.log(r)
                 }
 
             }, response)
-        })
+        });
     }
-    addToPanel = (buttons = []) => {
-        if (!(buttons instanceof Array)) buttons = [buttons];
-        this.setState((state) => {
-            const panel_buttons = [...state.panel_buttons, ...buttons ];
-            return  { 
-                panel_buttons: panel_buttons
-            }
-        })
+    createHero = (params) => {
+        this.provider.createHero(params).then((response)=>{
+            return this._processResponse({
+                c200: (r) => {
+                    this._authorized(r.data);
+                    this.openFrame(FRAMES.DASHBOARD);
+                },
+                c403: (r) => {
+                    console.log(r);
+                }
+            }, response);
+        });
     }
-    removefromPanel = (buttons = []) => {
-        if (!(buttons instanceof Array)) buttons = [buttons];
-        this.setState((state) => {
-            const panel_buttons = state.panel_buttons.filter((element) => {
-                return !buttons.includes(element.name);
-            });
-            return {
-                panel_buttons: panel_buttons
-            }
-        })
+    
+    createGang = (params) => {
+        const { api_token = false } = this.state;
+        this.provider.createGang(params, api_token).then((response)=>{
+            return this._processResponse({
+                c200: (r) => {
+                    this.openFrame(FRAMES.DASHBOARD);
+                },
+                c403: (r) => {
+                    console.log(r);
+                }
+            }, response);
+        });
     }
-    openFrame = (name) => {
+    createQuest = (params) => {
+        const { api_token = false } = this.state;
+        this.provider.createQuest(params, api_token).then((response)=>{
+            return this._processResponse({
+                c200: (r) => {
+                    this.openFrame(FRAMES.DASHBOARD);
+                },
+                c403: (r) => {
+                    console.log(r);
+                }
+            }, response);
+        });
+    }
+    //frames
+    openFrame = (name, data = {}) => {
         this.setState({
-            active_frame: name
+            active_frame: name,
+            active_frame_data: data
         })
     }
     _getFrame(name){
@@ -113,7 +149,24 @@ export default class App extends React.Component
             case FRAMES.CREATE_HERO:
                 return (
                     <CreateHero 
-                        login={this.login}
+                        createHero={this.createHero}
+                        openFrame={this.openFrame}
+                    />
+                )
+            break;
+            case FRAMES.CREATE_GANG:
+                return (
+                    <CreateGang 
+                        createGang={this.createGang}
+                        openFrame={this.openFrame}
+                    />
+                )
+            break;
+            case FRAMES.CREATE_QUEST:
+                return (
+                    <CreateQuest
+                        createQuest={this.createQuest}
+                        frameData={this.state.active_frame_data}
                         openFrame={this.openFrame}
                     />
                 )
@@ -121,10 +174,8 @@ export default class App extends React.Component
             case FRAMES.DASHBOARD:
                 return (
                     <Dashboard
-                        getData={this.getData}
+                        getData={this.dashboard}
                         openFrame={this.openFrame}
-                        addToPanel={this.addToPanel}
-                        removefromPanel={this.removefromPanel} 
                     />
                 )
             break;
@@ -145,7 +196,6 @@ export default class App extends React.Component
                 <div className="app-container">
                     {this._getFrame(active_frame)}
                 </div>
-                <Panel buttons={panel_buttons} removefromPanel={this.removefromPanel}/>
             </div>
         );
     }

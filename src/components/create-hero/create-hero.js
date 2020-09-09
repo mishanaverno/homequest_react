@@ -1,62 +1,34 @@
 import React from 'react';
 import AppFrame from '../app-frame';
 import { FRAMES } from '../app/app';
+import FormCreateHero from '../form-create-hero';
 
 export default class CreateHero extends AppFrame {
 
     state = {
+        login: "",
         name: "",
         password: "",
-        avatar: ""
+        password_c: "",
     }    
-
-    onChangeName = (e) => {
-        const { value } = e.target;
-        this.setState({
-            name: value
-        });
-    }
-    onChangePassword = (e) => {
-        const { value } = e.target;
-        this.setState({
-            password: value
-        });
-    }
     onCancelClick = (e) => {
         this.props.openFrame(FRAMES.LOGIN);
     }
+    onSubmitForm = (params) => {
+        this.props.createHero(params);
+    }
     render(){
         
-        const { name, password } = this.state;
-
         return this.frame(
             <div className="form">
                 <div className="form-header">
                     <p className="header-title">Create hero</p>
                     <p className="header-extratext">Enter your login and password.</p>
                 </div>
-                <div className="form-container">
-                    <div className="form-row">
-                        <label>Name</label>
-                        <input 
-                            type="text" 
-                            value={name}
-                            onChange={this.onChangeName}
-                            />
-                    </div>
-                    <div className="form-row">
-                        <label>Password</label>
-                        <input 
-                            type="password" 
-                            value={password}
-                            onChange={this.onChangePassword}
-                            />
-                    </div>
-                    <div className="form-group ">
-                        <button className="btn success" onClick={this.onOkClick}>Ok</button>
-                        <button className="btn reject" onClick={this.onCancelClick}>Cancel</button>
-                    </div>
-                </div>
+                <FormCreateHero
+                    onSubmit={this.onSubmitForm}
+                    onCancel={this.onCancelClick}
+                />
             </div>
         );
     }
