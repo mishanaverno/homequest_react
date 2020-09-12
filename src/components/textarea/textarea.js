@@ -4,7 +4,7 @@ import Input from '../input';
 export default class Textarea extends Input{
     
     render(){
-        const {label, value = '', type, invalid, error} = this.state;
+        const {label, value = '', invalid, error} = this.state;
         let classNames = 'form-row ';
         if(invalid) classNames += 'invalid ';
         return (

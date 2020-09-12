@@ -1,17 +1,21 @@
 import React from 'react';
-import Dashboard from '../dashboard';
-import Login from '../login';
-import Panel from '../panel';
-import CreateHero from '../create-hero';
-import CreateGang from '../create-gang';
-import CreateQuest from '../create-quest';
 import DataProvider from '../../lib/data-provider';
+import Dashboard from '../frames/dashboard';
+import Login from '../frames/login';
+import CreateHero from '../frames/create-hero';
+import CreateGang from '../frames/create-gang';
+import CreateQuest from '../frames/create-quest';
+import QuestDetail from '../frames/quest-detail';
+import GangDetail from '../frames/gang-detail';
+import Invite from '../frames/invite';
+import Join from '../frames/join';
 
 export const TOKEN = 'api_token';
 export const FRAMES = {
     LOGIN: 'login',
     DASHBOARD: 'dashboard',
-    QUEST: 'quest',
+    QUEST_DETAIL: 'quest-detail',
+    GANG_DETAIL: 'gang-detail',
     USER: 'user',
     PROFILE: 'profile',
     INVITE: 'invite',
@@ -117,6 +121,32 @@ export default class App extends React.Component
             }, response);
         });
     }
+    invite = (id) => {
+        const { api_token = false } = this.state;
+        this.provider.invite(id, api_token).then((response)=>{
+            return this._processResponse({
+                c200: (r) => {
+                    this.openFrame(FRAMES.INVITE, r);
+                },
+                c403: (r) => {
+                    console.log(r);
+                }
+            }, response);
+        });
+    }
+    join = (params) => {
+        const { api_token = false } = this.state;
+        this.provider.join(params, api_token).then((response)=>{
+            return this._processResponse({
+                c200: (r) => {
+                    this.openFrame(FRAMES.DASHBOARD);
+                },
+                c403: (r) => {
+                    console.log(r);
+                }
+            }, response);
+        });
+    }
     createQuest = (params) => {
         const { api_token = false } = this.state;
         this.provider.createQuest(params, api_token).then((response)=>{
@@ -130,6 +160,99 @@ export default class App extends React.Component
             }, response);
         });
     }
+    questActions = {
+        questStart: (id)=>{
+            const { api_token = false } = this.state;
+            this.provider.progressQuest(id, api_token).then((response)=>{
+                return this._processResponse({
+                    c200: (r) => {
+                        this.openFrame(FRAMES.DASHBOARD);
+                    },
+                    c403: (r) => {
+                        console.log(r);
+                    }
+                }, response);
+            });
+        },
+        questReady: (id)=>{
+            const { api_token = false } = this.state;
+            this.provider.pendingQuest(id, api_token).then((response)=>{
+                return this._processResponse({
+                    c200: (r) => {
+                        this.openFrame(FRAMES.DASHBOARD);
+                    },
+                    c403: (r) => {
+                        console.log(r);
+                    }
+                }, response);
+            });
+        },
+        questReopen: (id)=>{
+            const { api_token = false } = this.state;
+            this.provider.reopenQuest(id, api_token).then((response)=>{
+                return this._processResponse({
+                    c200: (r) => {
+                        this.openFrame(FRAMES.DASHBOARD);
+                    },
+                    c403: (r) => {
+                        console.log(r);
+                    }
+                }, response);
+            });
+        },
+        questComplete: (id)=>{
+            const { api_token = false } = this.state;
+            this.provider.completeQuest(id, api_token).then((response)=>{
+                return this._processResponse({
+                    c200: (r) => {
+                        this.openFrame(FRAMES.DASHBOARD);
+                    },
+                    c403: (r) => {
+                        console.log(r);
+                    }
+                }, response);
+            });
+        },
+        questReject: (id)=>{
+            const { api_token = false } = this.state;
+            this.provider.reopenQuest(id, api_token).then((response)=>{
+                return this._processResponse({
+                    c200: (r) => {
+                        this.openFrame(FRAMES.DASHBOARD);
+                    },
+                    c403: (r) => {
+                        console.log(r);
+                    }
+                }, response);
+            });
+        },
+        questDecline: (id)=>{
+            const { api_token = false } = this.state;
+            this.provider.declineQuest(id, api_token).then((response)=>{
+                return this._processResponse({
+                    c200: (r) => {
+                        this.openFrame(FRAMES.DASHBOARD);
+                    },
+                    c403: (r) => {
+                        console.log(r);
+                    }
+                }, response);
+            });
+        },
+        questDelete: (id)=>{
+            const { api_token = false } = this.state;
+            this.provider.deleteQuest(id, api_token).then((response)=>{
+                return this._processResponse({
+                    c200: (r) => {
+                        this.openFrame(FRAMES.DASHBOARD);
+                    },
+                    c403: (r) => {
+                        console.log(r);
+                    }
+                }, response);
+            });
+        }
+    }
     //frames
     openFrame = (name, data = {}) => {
         this.setState({
@@ -140,45 +263,53 @@ export default class App extends React.Component
     _getFrame(name){
         switch(name){
             case FRAMES.LOGIN:
-                return (
-                    <Login 
-                        login={this.login} 
-                        openFrame={this.openFrame}
-                    />)
-                break;
-            case FRAMES.CREATE_HERO:
-                return (
-                    <CreateHero 
-                        createHero={this.createHero}
-                        openFrame={this.openFrame}
-                    />
-                )
-            break;
-            case FRAMES.CREATE_GANG:
-                return (
-                    <CreateGang 
-                        createGang={this.createGang}
-                        openFrame={this.openFrame}
-                    />
-                )
-            break;
-            case FRAMES.CREATE_QUEST:
-                return (
-                    <CreateQuest
-                        createQuest={this.createQuest}
-                        frameData={this.state.active_frame_data}
-                        openFrame={this.openFrame}
-                    />
-                )
-            break;
+                return (<Login 
+                    login={this.login} 
+                    openFrame={this.openFrame}
+                />)
             case FRAMES.DASHBOARD:
-                return (
-                    <Dashboard
-                        getData={this.dashboard}
-                        openFrame={this.openFrame}
-                    />
-                )
-            break;
+                return (<Dashboard
+                    getData={this.dashboard}
+                    openFrame={this.openFrame}
+                />)
+            case FRAMES.QUEST_DETAIL:
+                return (<QuestDetail
+                    questActions={this.questActions}
+                    openFrame={this.openFrame}
+                    frameData={this.state.active_frame_data}
+                />)
+            case FRAMES.GANG_DETAIL:
+                return (<GangDetail
+                    invite={this.invite}
+                    openFrame={this.openFrame}
+                    frameData={this.state.active_frame_data}
+                />)
+            case FRAMES.INVITE:
+                return (<Invite
+                    openFrame={this.openFrame}
+                    frameData={this.state.active_frame_data}
+                />)
+            case FRAMES.JOIN:
+                return (<Join
+                    join={this.join}
+                    openFrame={this.openFrame}
+                />)
+            case FRAMES.CREATE_HERO:
+                return (<CreateHero 
+                    createHero={this.createHero}
+                    openFrame={this.openFrame}
+                />)
+            case FRAMES.CREATE_GANG:
+                return (<CreateGang 
+                    createGang={this.createGang}
+                    openFrame={this.openFrame}
+                />)
+            case FRAMES.CREATE_QUEST:
+                return (<CreateQuest
+                    createQuest={this.createQuest}
+                    frameData={this.state.active_frame_data}
+                    openFrame={this.openFrame}
+                />)
             default:
                 break;
         }
@@ -186,11 +317,9 @@ export default class App extends React.Component
     render() {
         
         const {
-            gangs = [],
-            panel_buttons,
             active_frame
         } = this.state;
-
+        
         return (
             <div id="app">
                 <div className="app-container">

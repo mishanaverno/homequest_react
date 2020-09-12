@@ -4,18 +4,6 @@ import InputReward from '../input-reward';
 import Textarea from '../textarea';
 
 export default class Form extends React.Component{
-    // input = {
-    //     name: '',
-    //     label: '',
-    //     type: '',
-    //     validation: ''
-    // }
-    // button = {
-    //     name
-    //     label: ''
-    //     className: ''
-    //     onClick: ''
-    // }
     state = {
         inputs: this.props.inputs,
         buttons: this.props.buttons,
@@ -25,8 +13,21 @@ export default class Form extends React.Component{
         return true;
     }
     //------------------------------------------------------
-    getData(){
-        const { data = {}} = this.props.frameData;
+    componentDidMount(){
+        const { inputs = []} = this.state;
+        const defaultData = this.getFrameData();
+        inputs.map((input) => {
+            const { value = '', name } = input;
+            defaultData[name] = value;
+            return input;
+        });
+        this.setState({
+            data: { ...defaultData }
+        })
+    }
+    getFrameData(){
+        const { frameData = {}} =this.props;
+        const { data = {}} = frameData;
         return data;
     }
     indicateInvalidInputs(errors){
@@ -45,13 +46,14 @@ export default class Form extends React.Component{
                 })
                 input.invalid = true;
                 input.error = msg;
+                return error;
             })
             return {
                 inputs: inputs
             }
         })
     }
-    updateFormData = (name, value) => {
+    updateFormData = (name, value = '') => {
         this.setState((state) => {
             const data = { ...state.data};
             data[name] = value;
@@ -76,7 +78,6 @@ export default class Form extends React.Component{
                     return <Textarea { ...el } key={el.name} />
                 case 'reward':
                     return <InputReward { ...el } key={el.name}/>;
-                    break;
                 default:
                     return <Input { ...el } key={el.name}/>;
             }
@@ -92,7 +93,7 @@ export default class Form extends React.Component{
                 onSubmit={this.onSubmit}
             >
                 {inputElements}
-                <div className="form-group ">
+                <div className="form-group bottom">
                     {buttonsElements}
                 </div>
             </form>

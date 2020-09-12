@@ -33,20 +33,24 @@ export default class FormCreateQuest extends Form{
             {
                 name: 2,
                 label: "Cancel",
-                className: "reject",
+                className: "cancel",
                 onClick: this.props.onCancel
             }
         ],
-        data: this.getData()
+        data: {}
     }
 
     validate = () => {
         const validator = new Validator();
-        const { title, description, reward } = this.state.data;
+        const { title, description } = this.state.data;
         let valid = true;
         let errors = {};
         //title
         if(!validator.notEmpty(title)){
+            valid = false;
+            errors.title = 'Should be not empty';
+        }
+        if(!validator.maxLength(title, 95)){
             valid = false;
             errors.title = 'Should be not empty';
         }
@@ -55,9 +59,11 @@ export default class FormCreateQuest extends Form{
             valid = false;
             errors.description = 'Should be not empty';
         }
-        
+        if(!validator.maxLength(description, 250)){
+            valid = false;
+            errors.description = 'Should be not empty';
+        }
         this.indicateInvalidInputs(errors);
-        console.log(valid);
         return valid;
     }
 }

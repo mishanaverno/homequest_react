@@ -1,7 +1,7 @@
 import React from 'react';
-import AppFrame from '../app-frame';
-import FormCreateQuest from '../form-create-quest';
-import { FRAMES } from '../app/app';
+import AppFrame from '../../app-frame';
+import FormCreateQuest from '../../form-create-quest';
+import { FRAMES } from '../../app/app';
 
 export default class CreateQuest extends AppFrame{
     onCancelClick = (e) => {
@@ -11,7 +11,6 @@ export default class CreateQuest extends AppFrame{
         this.props.createQuest(params);
     }
     render() {
-        const { data } = this.props.frameData;
         return this.frame(
             <div className="form">
                 <div className="form-header">

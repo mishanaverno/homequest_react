@@ -25,7 +25,7 @@ export default class FormLogin extends Form{
             {
                 name: 2,
                 label: "Create New",
-                className: "reject",
+                className: "create",
                 onClick: this.props.onCreateNewClick
             }
         ],
@@ -33,7 +33,7 @@ export default class FormLogin extends Form{
     }
     validate = () => {
         const validator = new Validator();
-        const { login, name, password, c_password } = this.state.data;
+        const { login, password } = this.state.data;
         let valid = true;
         let errors = {};
         //login
@@ -41,18 +41,22 @@ export default class FormLogin extends Form{
             valid = false;
             errors.login = 'Invalid email format';
         }
-        if(!validator.notEmpty(login)){
+        if(!validator.minLength(login, 1)){
+            valid = false;
+            errors.login = 'Should be not empty';
+        }
+        if(!validator.maxLength(login, 95)){
             valid = false;
             errors.login = 'Should be not empty';
         }
         //pass
-        if(!validator.length(password, 6)){
+        if(!validator.minLength(password, 6)){
             valid = false;
             errors.password = 'Length should be more than 5';
         }
-        if(!validator.notEmpty(password)){
+        if(!validator.maxLength(password, 50)){
             valid = false;
-            errors.password = 'Should be not empty';
+            errors.password = 'Length should be more than 5';
         }
         this.indicateInvalidInputs(errors);
         return valid;

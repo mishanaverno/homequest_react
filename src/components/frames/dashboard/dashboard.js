@@ -1,8 +1,8 @@
 import React from 'react';
-import AppFrame from '../app-frame';
-import Gang from '../gang';
-import DashboardHeroInfo from '../dashboard-hero-info';
-import { FRAMES } from '../app/app';
+import AppFrame from '../../app-frame';
+import Gang from '../../gang';
+import DashboardHeroInfo from '../../dashboard-hero-info';
+import { FRAMES } from '../../app/app';
 
 export default class Dashboard extends AppFrame {
     state = {
@@ -22,9 +22,10 @@ export default class Dashboard extends AppFrame {
     }
     renderGangs(){
         const { openFrame } = this.props;
-        const { style } = this.state;
+        const { style , id } = this.state;
         return this.state.gangs.map((gang) => (
             <Gang
+                userId={id}
                 userStyle={style}
                 key={gang.id} 
                 openFrame={openFrame}
@@ -33,6 +34,9 @@ export default class Dashboard extends AppFrame {
     }
     onCreateGangClick = (e) => {
         this.props.openFrame(FRAMES.CREATE_GANG);
+    }
+    onJoinGangClick = (e) => {
+        this.props.openFrame(FRAMES.JOIN);
     }
     render(){
         const {
@@ -54,10 +58,13 @@ export default class Dashboard extends AppFrame {
                 </div>
                 <div className="dashboard-buttons-container">
                     <button 
-                        className="super-btn create-gang" 
+                        className="super-btn create" 
                         onClick={this.onCreateGangClick}
                     >Create gang!</button>
-                    <button className="super-btn join-gang">Join gang!</button>
+                    <button
+                        className="super-btn open"
+                        onClick={this.onJoinGangClick}
+                    >Join gang!</button>
                 </div>
             </div>
         );

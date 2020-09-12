@@ -1,6 +1,6 @@
 .dashboard{
     height: 100%;
-    padding: 10px 10px 80px;
+    padding: 10px 0 80px;
     box-sizing: border-box;
     overflow-y: scroll;
 }

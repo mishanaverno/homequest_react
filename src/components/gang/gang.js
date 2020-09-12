@@ -18,6 +18,9 @@ export default class Gang extends React.Component {
             this.setState(({opened}) => {return { opened: !opened}})
         }
     }
+    onGangTitleClick = (e) =>{
+        this.props.openFrame(FRAMES.GANG_DETAIL, this.props);
+    }
     onCreateQuestClick = (e) => {
         const props = {
             data: {
@@ -34,11 +37,12 @@ export default class Gang extends React.Component {
         let classNames = 'gang ';
         if (this.state.opened) classNames += 'opened ';
 
-        const {quests = [], name, openFrame } = this.props;
+        const {quests = [], name, openFrame, userId = 0 } = this.props;
         const questElements = quests.map((quest) => {
+            quest.userId = userId;
             return (
                 <Quest 
-                    { ... quest} 
+                    { ...quest } 
                     openFrame={openFrame}
                     key={quest.id}/>
             );
@@ -47,11 +51,11 @@ export default class Gang extends React.Component {
             <div className={classNames}>
                 <div className="gang-header" onClick={this.toggleOpened}>
                     <div className="gang-header-info">
-                        <p className="header-title">{name}</p>
+                        <p className="header-title" onClick={this.onGangTitleClick}>{name}</p>
                         <p className="header-extratext">adiitional text</p>   
                     </div>
                     <div className="gang-header-btn">
-                        <button className="btn icon success" onClick={this.onCreateQuestClick}>+</button>
+                        <button className="btn icon create" onClick={this.onCreateQuestClick}>+</button>
                     </div>
                 </div>
                 <div className="gang-container">

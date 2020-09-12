@@ -1,20 +1,20 @@
 :root{
-    --first-color: #413c69;
-    --second-color: #4a47a3;
-    --third-color: #ad62aa;
-    --fourth-color: #eab9c9;
-    --first-font-color: #fff;
-    --second-font-color: #fff;
+    --first-color: #f4f3f3;
+    --second-color: #dfdfdf;
+    --third-color: #bfd8d5;
+    --fourth-color: #b1bed5;
+    --first-font-color: #000;
+    --second-font-color: #000;
     --third-font-color: #000;
     --fourth-font-color: #000;
 
-    --green: #66B869; /*complete*/
-    --red: #CC5858; /*pending*/
     --reward: #ffa41b; /*reward*/
-    --purple: #f6416c; /**/
+
+    --green: #66B869; /*complete - success*/
+    --red: #CC5858; /*reject*/
+    --yellow: #ffc93c;/*pending - create*/ 
     --blue: #00909e; /*progress*/
-    --violet: #95389e; /**/
-    --gray: #f2f6f5; /*opened*/
+    --gray: #f2f6f5; /*opened - cancel*/
 
 }
 
@@ -50,51 +50,17 @@ html,
 }
 
 .header-title {
-    margin: 0 0 5px;
+    margin: 0 0 10px;
     font-size: 20px;
+    display: flex;
+    align-items: center;
 }
-
 .header-extratext {
     margin: 0;
     font-size: 14px;
     font-style: italic;
     opacity: .7;
     font-weight: 100;
-}
-
-.form-header {
-    padding: 20px 0;
-}
-.form-container {
-    display: flex;
-    flex-direction: column;
-}
-.form-container>* {
-    margin-bottom: 20px;
-}
-.form-container>*:last-child{
-    margin-bottom: 0;
-}
-.form-group {
-    display: flex;
-}
-.form-group>* {
-    flex-grow: 1;
-    flex-basis: 10px;
-}
-.form-group>*:not(:last-child) {
-    margin-right: 3px;
-}
-.form-group>*:not(:last-child):not(:first-child) {
-    border-radius: 0;
-}
-.form-group>*:last-child {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-.form-group>*:first-child {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
 }
 .btn {
     position: relative;
@@ -123,13 +89,21 @@ html,
 .btn:focus {
 
 }
-.btn.primary {
-    color: #fff;
-    background-color: var(--second-color);
+.btn.cancel {
+    color: #000;
+    background-color: var(--gray);
 }
 .btn.success {
     color: #fff;
     background-color: var(--green);
+}
+.btn.reject {
+    color: #fff;
+    background-color: var(--red);
+}
+.btn.create{
+    color: #000;
+    background-color:  var(--yellow);
 }
 
 .super-btn {
@@ -151,12 +125,12 @@ html,
     box-shadow: 0 3px 0 0px #fff;
     top: 3px;
 }
-.super-btn.create-gang {
-    background-color: var(--green);
-    color: #fff;
+.super-btn.create {
+    background-color: var(--yellow);
+    color: #000;
 }
 
-.super-btn.join-gang {
-    background-color: var(--violet);
+.super-btn.open {
+    background-color: var(--blue);
     color: #fff;
 }

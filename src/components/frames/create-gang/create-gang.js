@@ -1,7 +1,7 @@
 import React from 'react';
-import AppFrame from '../app-frame';
-import FormCreateGang from '../form-create-gang';
-import { FRAMES } from '../app/app';
+import AppFrame from '../../app-frame';
+import FormCreateGang from '../../form-create-gang';
+import { FRAMES } from '../../app/app';
 
 export default class CreateGang extends AppFrame{
     onCancelClick = (e) => {

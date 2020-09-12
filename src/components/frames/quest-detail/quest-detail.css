@@ -1,0 +1,101 @@
+.quest-detail {
+    background-color: var(--third-color);
+    border-radius: 5px;
+    padding: 0 10px;
+    position: relative;
+    overflow: hidden;
+}
+.quest-description {
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 100px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background-color: rgba(0,0,0,.3);
+}
+.quest-detail-reward {
+    margin-top: auto;
+    font-size: 14px;
+    font-style: italic;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+.header-title span {
+    background-color: #fff;
+    margin-left: auto;
+    padding: 0 5px;
+    font-size: 14px;
+}
+.header-title .open{
+    background-color: var(--gray);
+    color: #000;
+}
+.header-title .progress{
+    background-color: var(--blue);
+    color: #fff;
+}
+.header-title .pending{
+    background-color: var(--yellow);
+    color: #000;
+}
+.header-title .complete{
+    background-color: var(--green);
+    color: #fff;
+}
+.heroes-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 -10px;
+    flex-direction: column;
+    padding: 30px 0;
+}
+.customer-info,
+.performer-info {
+    display: flex;
+    padding: 10px;
+}
+.customer-info {
+    background-color: var(--fourth-color);
+    color: var(--fourth-font-color);
+}
+.hero-conainer {
+    display: flex;
+    align-items: center;
+}
+.performer-info{
+    justify-content: flex-end;
+}
+.performer-info.open{
+    background-color: var(--gray);
+    color: #000;
+}
+.performer-info.progress{
+    background-color: var(--blue);
+    color: #000;
+}
+.performer-info.pending{
+    background-color: var(--yellow);
+    color: #000;
+}
+.performer-info .hero-conainer{
+    flex-direction: row-reverse;
+}
+
+.hero-avatar-container {
+    width: 80px;
+    height: 80px;
+}
+.hero-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.hero_name_container {
+    padding: 10px 15px;
+}
+.hero-role {
+    font-size: 14px;
+    margin-bottom: 10px;
+}

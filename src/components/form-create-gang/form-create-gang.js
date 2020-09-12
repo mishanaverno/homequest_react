@@ -31,7 +31,7 @@ export default class FormCreateGang extends Form{
             {
                 name: 2,
                 label: "Cancel",
-                className: "reject",
+                className: "cancel",
                 onClick: this.props.onCancel
             }
         ],
@@ -42,11 +42,18 @@ export default class FormCreateGang extends Form{
         const { name } = this.state.data;
         let valid = true;
         let errors = {};
+        console.log(name);
         //name
-        if(!validator.notEmpty(name)){
+        if(!validator.minLength(name, 3)){
             valid = false;
-            errors.name = 'Should be not empty';
+            errors.name = 'Too short name!';
         }
+        if(!validator.maxLength(name, 250)){
+            valid = false;
+            errors.name = 'Too long name!';
+        }
+        this.indicateInvalidInputs(errors);
         return valid;
+       
     }
 }

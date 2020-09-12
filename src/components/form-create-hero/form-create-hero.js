@@ -35,7 +35,7 @@ export default class FormCreateHero extends Form{
             {
                 name: 2,
                 label: "Cancel",
-                className: "reject",
+                className: "cancel",
                 onClick: this.props.onCancel
             }
         ],
@@ -51,32 +51,36 @@ export default class FormCreateHero extends Form{
             valid = false;
             errors.login = 'Invalid email format';
         }
-        if(!validator.notEmpty(login)){
+        if(!validator.minLength(login, 1)){
+            valid = false;
+            errors.login = 'Should be not empty';
+        }
+        if(!validator.maxLength(login, 95)){
             valid = false;
             errors.login = 'Should be not empty';
         }
         //name
-        if(!validator.notEmpty(name)){
+        if(!validator.minLength(name, 1)){
+            valid = false;
+            errors.name = 'Should be not empty';
+        }
+        if(!validator.maxLength(name, 95)){
             valid = false;
             errors.name = 'Should be not empty';
         }
         //pass
-        if(!validator.length(password, 6)){
+        if(!validator.minLength(password, 6)){
             valid = false;
             errors.password = 'Length should be more than 5';
         }
-        if(!validator.notEmpty(password)){
+        if(!validator.maxLength(password, 50)){
             valid = false;
-            errors.password = 'Should be not empty';
+            errors.password = 'Length should be more than 5';
         }
         //c_pass
-        if(!validator.notEmpty(c_password, password)){
+        if(!validator.passwordEquals(c_password, password)){
             valid = false;
             errors.c_password = 'Passwords are different';
-        }
-        if(!validator.notEmpty(c_password)){
-            valid = false;
-            errors.c_password = 'Should be not empty';
         }
         this.indicateInvalidInputs(errors);
         return valid;

@@ -35,9 +35,9 @@ export default class InputReward extends Input{
         const { value } = e.target;
         const { max } = this.props;
         let valid = true;
-        const intValue = parseInt(value);
-        if (/[^\d]/.test(value)) valid = false;
-        if (isNaN(intValue) || intValue < 0 ||intValue > max) valid = false;
+        let intValue = parseInt(value);
+        if (intValue > max) valid = false;
+        if (isNaN(intValue) || intValue < 0 ) intValue = 0;
         if (valid){
             this.changeValue(intValue);
         }

@@ -1,6 +1,6 @@
 export default class DataProvider{
     constructor(api_token){
-        this._apiBase = 'http://185.231.245.253';
+        this._apiBase = 'http://185.231.245.253/api';
     }
     
 
@@ -21,6 +21,7 @@ export default class DataProvider{
             const requestData = new FormData();
             Object.entries(body).map((el) => {
                 requestData.append(el[0],el[1]);
+                return el;
             });
             init.body = requestData;
         }
@@ -45,8 +46,47 @@ export default class DataProvider{
         return result;
     }
     async getDashboard(api_token){
-        console.log(api_token)
         const result = await this.getResource('/hero', 'GET', api_token);
+        console.log(result);
+        return result;
+    }
+    async invite(id, api_token){
+        const result = await this.getResource('/gang/'+id+'/invite', 'GET', api_token);
+        console.log(result);
+        return result;
+    }
+    async join(params, api_token){
+        const result = await this.getResource('/gang/join', 'POST', api_token, params);
+        console.log(result);
+        return result;
+    }
+    async deleteQuest(id, api_token){
+        const result = await this.getResource('/quest/'+id+'/delete', 'PUT', api_token);
+        console.log(result);
+        return result;
+    }
+    async progressQuest(id, api_token){
+        const result = await this.getResource('/quest/'+id+'/progress', 'PUT', api_token);
+        console.log(result);
+        return result;
+    }
+    async pendingQuest(id, api_token){
+        const result = await this.getResource('/quest/'+id+'/pending', 'PUT', api_token);
+        console.log(result);
+        return result;
+    }
+    async completeQuest(id, api_token){
+        const result = await this.getResource('/quest/'+id+'/complete', 'PUT', api_token);
+        console.log(result);
+        return result;
+    }
+    async declineQuest(id, api_token){
+        const result = await this.getResource('/quest/'+id+'/decline', 'PUT', api_token);
+        console.log(result);
+        return result;
+    }
+    async reopenQuest(id, api_token){
+        const result = await this.getResource('/quest/'+id+'/reopen', 'PUT', api_token);
         console.log(result);
         return result;
     }

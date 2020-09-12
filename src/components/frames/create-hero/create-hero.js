@@ -1,7 +1,7 @@
 import React from 'react';
-import AppFrame from '../app-frame';
-import { FRAMES } from '../app/app';
-import FormCreateHero from '../form-create-hero';
+import AppFrame from '../../app-frame';
+import { FRAMES } from '../../app/app';
+import FormCreateHero from '../../form-create-hero';
 
 export default class CreateHero extends AppFrame {
 

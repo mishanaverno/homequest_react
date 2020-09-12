@@ -9,6 +9,7 @@ const DashboardHeroInfo = ({
         <div className="dashboard-hero-info">
             <img
                 src={avatar}
+                alt={name}
             />
             <div className="dashboard-hero-description">
                 <div className="dashboard-hero-description-top">
