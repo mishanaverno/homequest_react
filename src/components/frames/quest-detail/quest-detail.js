@@ -93,6 +93,7 @@ export default class QuestDetail extends AppFrame{
                                     className="hero-avatar"
                                     src={performer_avatar}
                                     alt={performer_name}
+                                    onClick={(e) => {this.props.openFrame(FRAMES.PROFILE, { id: performer_id })}}
                                 />
                             </div>
                             <div className="hero_name_container">
@@ -115,6 +116,7 @@ export default class QuestDetail extends AppFrame{
             state,
             customer_avatar,
             customer_name,
+            customer_id
         } = this.props.frameData;
         const reward = base_reward + bonus_reward
         const buttons = this.getButtons();
@@ -140,6 +142,7 @@ export default class QuestDetail extends AppFrame{
                                         className="hero-avatar"
                                         src={customer_avatar}
                                         alt={customer_name}
+                                        onClick={(e) => {this.props.openFrame(FRAMES.PROFILE, { id: customer_id })}}
                                     />
                                 </div>
                                 <div className="hero_name_container">

@@ -13,13 +13,18 @@ export default class Input extends React.Component{
         return value;
     }
     componentDidUpdate(prev){
+        const {       
+            value = ""
+        } = this.props;
         if (
             prev.invalid !== this.props.invalid ||
-            prev.error !== this.props.error
+            prev.error !== this.props.error ||
+            prev.value !== this.props.value
         ){
             this.setState({
                 invalid: this.props.invalid,
-                error: this.props.error
+                error: this.props.error,
+                value: value
             });
         }
         

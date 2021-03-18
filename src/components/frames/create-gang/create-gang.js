@@ -1,6 +1,6 @@
 import React from 'react';
 import AppFrame from '../../app-frame';
-import FormCreateGang from '../../form-create-gang';
+import FormCreateGang from '../../forms/form-create-gang';
 import { FRAMES } from '../../app/app';
 
 export default class CreateGang extends AppFrame{

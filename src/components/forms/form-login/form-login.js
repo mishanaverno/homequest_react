@@ -1,5 +1,5 @@
-import Form from '../form';
-import Validator from '../../lib/validator';
+import Form from '../../form';
+import Validator from '../../../lib/validator';
 
 export default class FormLogin extends Form{
     state = {

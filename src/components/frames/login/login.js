@@ -1,6 +1,6 @@
 import React from 'react';
 import AppFrame from '../../app-frame';
-import FormLogin from '../../form-login';
+import FormLogin from '../../forms/form-login';
 import { FRAMES } from '../../app/app';
 
 export default class Login extends AppFrame {

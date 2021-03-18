@@ -1,6 +1,7 @@
 import React from 'react';
 import DataProvider from '../../lib/data-provider';
 import Dashboard from '../frames/dashboard';
+import Profile from '../frames/profile';
 import Login from '../frames/login';
 import CreateHero from '../frames/create-hero';
 import CreateGang from '../frames/create-gang';
@@ -9,6 +10,8 @@ import QuestDetail from '../frames/quest-detail';
 import GangDetail from '../frames/gang-detail';
 import Invite from '../frames/invite';
 import Join from '../frames/join';
+import EditHero from '../frames/edit-hero';
+import EditGang from '../frames/edit-gang';
 
 export const TOKEN = 'api_token';
 export const FRAMES = {
@@ -67,7 +70,7 @@ export default class App extends React.Component
         this.openFrame(FRAMES.LOGIN);
     }
     // provider
-    login = (credentials) => {
+    login = async (credentials) => {
         this.provider.login(credentials).then((response)=>{
             return this._processResponse({
                 c200: (r) => {
@@ -80,19 +83,68 @@ export default class App extends React.Component
             }, response);
         });
     }
-    dashboard = () => {
+    logout = async (credentials) => {
         const { api_token = false } = this.state;
-        return this.provider.getDashboard(api_token).then((response)=>{
+        this.provider.logout(api_token).then((response)=>{
             return this._processResponse({
                 c200: (r) => {
-                    return r;
+                    this._notAuthorized();
                 },
                 c403: (r) => {
                     console.log(r)
                 }
-
-            }, response)
+            }, response);
         });
+    }
+    info = async () => {
+        const { api_token = false } = this.state;
+        const response = await this.provider.info(api_token);
+        return this._processResponse({
+            c200: (r_1) => {
+                return r_1;
+            },
+            c403: (r_3) => {
+                console.log(r_3);
+            }
+        }, response);
+    }
+    dashboard = async () => {
+        const { api_token = false } = this.state;
+        const response = await this.provider.getDashboard(api_token);
+        return this._processResponse({
+            c200: (r_1) => {
+                return r_1;
+            },
+            c403: (r_3) => {
+                console.log(r_3);
+            }
+        }, response);
+    }
+    gang = async (params) => {
+        const { frameData: { id } } = params;
+        const { api_token = false } = this.state;
+        const response = await this.provider.getGang(id, api_token);
+        return this._processResponse({
+            c200: (r) => {
+                return r;
+            },
+            c403: (r) => {
+                console.log(r);
+            }
+        }, response);
+    }
+    profile = async (params) => {
+        const { frameData: { id } } = params;
+        const { api_token = false } = this.state;
+        const response = await this.provider.getHero(id, api_token);
+        return this._processResponse({
+            c200: (r) => {
+                return r;
+            },
+            c403: (r) => {
+                console.log(r);
+            }
+        }, response);
     }
     createHero = (params) => {
         this.provider.createHero(params).then((response)=>{
@@ -107,10 +159,39 @@ export default class App extends React.Component
             }, response);
         });
     }
-    
+    editHero = (params) => {
+        console.log(params)
+        const { api_token = false } = this.state;
+        this.provider.editHero(params, api_token).then((response)=>{
+            return this._processResponse({
+                c200: (r) => {
+                    this.openFrame(FRAMES.DASHBOARD);
+                },
+                c403: (r) => {
+                    console.log(r);
+                }
+            }, response);
+        });
+    }
     createGang = (params) => {
         const { api_token = false } = this.state;
         this.provider.createGang(params, api_token).then((response)=>{
+            return this._processResponse({
+                c200: (r) => {
+                    this.openFrame(FRAMES.DASHBOARD);
+                },
+                c403: (r) => {
+                    console.log(r);
+                }
+            }, response);
+        });
+    }
+    editGang = (params) => {
+        console.log(params);
+        const { api_token = false } = this.state;
+        const { id } = params;
+        delete params.id;
+        this.provider.editGang(id, params, api_token).then((response)=>{
             return this._processResponse({
                 c200: (r) => {
                     this.openFrame(FRAMES.DASHBOARD);
@@ -272,6 +353,12 @@ export default class App extends React.Component
                     getData={this.dashboard}
                     openFrame={this.openFrame}
                 />)
+            case FRAMES.PROFILE:
+                return (<Profile
+                    getData={this.profile}
+                    openFrame={this.openFrame}
+                    frameData={this.state.active_frame_data}
+                />)
             case FRAMES.QUEST_DETAIL:
                 return (<QuestDetail
                     questActions={this.questActions}
@@ -280,6 +367,7 @@ export default class App extends React.Component
                 />)
             case FRAMES.GANG_DETAIL:
                 return (<GangDetail
+                    getData={this.gang}
                     invite={this.invite}
                     openFrame={this.openFrame}
                     frameData={this.state.active_frame_data}
@@ -299,11 +387,23 @@ export default class App extends React.Component
                     createHero={this.createHero}
                     openFrame={this.openFrame}
                 />)
+            case FRAMES.EDIT_HERO:
+                return (<EditHero
+                    updateHero={this.editHero}
+                    getData={this.info}
+                    openFrame={this.openFrame}
+                />)
             case FRAMES.CREATE_GANG:
                 return (<CreateGang 
                     createGang={this.createGang}
                     openFrame={this.openFrame}
                 />)
+                case FRAMES.EDIT_GANG:
+                    return (<EditGang
+                        updateGang={this.editGang}
+                        openFrame={this.openFrame}
+                        frameData={this.state.active_frame_data}
+                    />)
             case FRAMES.CREATE_QUEST:
                 return (<CreateQuest
                     createQuest={this.createQuest}

@@ -9,12 +9,18 @@ const Quest = (props) => {
         state,
         customer_avatar,
         performer_avatar,
+        customer_id,
+        performer_id,
         openFrame
     } = props;
     const reward = base_reward + bonus_reward;
-    const createAvatar = (avatar) => {
+    const createAvatar = (avatar, id) => {
         if(avatar){
-            return (<img className="quest-avatar" src={avatar} alt=""/>);
+            return (<img 
+                        className="quest-avatar"
+                        src={avatar}
+                        alt=""
+                    />);
         }
     }
     const openDetails = (e) => {
@@ -38,8 +44,8 @@ const Quest = (props) => {
                     </div>
                 </div>
                 <div className="quest-header-persons">
-                    {createAvatar(customer_avatar)}
-                    {createAvatar(performer_avatar)}
+                    {createAvatar(customer_avatar, customer_id)}
+                    {createAvatar(performer_avatar, performer_id)}
                 </div>
                 <div className={stateClassNames}></div>
             </div>

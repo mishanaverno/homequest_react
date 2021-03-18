@@ -14,19 +14,43 @@ export default class Form extends React.Component{
     }
     //------------------------------------------------------
     componentDidMount(){
+        this._getDefaultData();
+    }
+    componentDidUpdate(){
+        if (this._dataIsChanged(this.getFrameData())) {
+            this._getDefaultData();
+        }
+    }
+    _dataIsChanged(newData){
+        let changed = false;
+        const oa = Object.keys(this.state.data);
+        const na = Object.keys(newData);
+        if(oa.length < na.length ) return true;
+        na.forEach((e)=>{
+            if(this.state.data[e] !== newData[e]) changed = true;
+        });
+        
+        return changed;
+    }
+    _getDefaultData(){
         const { inputs = []} = this.state;
         const defaultData = this.getFrameData();
-        inputs.map((input) => {
+        const newInputs = inputs.map((input) => {
             const { value = '', name } = input;
-            defaultData[name] = value;
+            if(defaultData[name]){
+                input.value = defaultData[name];
+            }else{
+                defaultData[name] = value;  
+            }
             return input;
         });
         this.setState({
+            inputs: newInputs,
             data: { ...defaultData }
         })
     }
     getFrameData(){
-        const { frameData = {}} =this.props;
+        const { frameData = {}} = this.props;
         const { data = {}} = frameData;
         return data;
     }

@@ -9,22 +9,22 @@ export default class DataProvider{
         const headers = new Headers();
         headers.append('Accept','application/json');
         if (token) headers.append('Token', token);
+        
         const init = {
-            method: method,
             credentials: 'same-origin',
             headers: headers,
             //mode: 'no-cors'
         }
-        
+        const requestData = new FormData()
         if (body) {
-            
-            const requestData = new FormData();
             Object.entries(body).map((el) => {
                 requestData.append(el[0],el[1]);
                 return el;
             });
-            init.body = requestData;
         }
+        if (method === 'PUT') requestData.append('_method','PUT');
+        if (method !== 'GET') init.body = requestData;
+        init.method = method === 'PUT' ? 'POST' : method;
         const request = new Request(this._apiBase+url, init);
         const response = await fetch(request);
         return await response.clone().json();
@@ -45,8 +45,22 @@ export default class DataProvider{
         const result = await this.getResource('/login', 'POST', false, credentials);
         return result;
     }
+    async logout(api_token){
+        const result = await this.getResource('/logout', 'POST', api_token);
+        return result;
+    }
     async getDashboard(api_token){
         const result = await this.getResource('/hero', 'GET', api_token);
+        console.log(result);
+        return result;
+    }
+    async getGang(id, api_token){
+        const result = await this.getResource('/gang/'+id, 'GET', api_token);
+        console.log(result);
+        return result;
+    }
+    async getHero(id, api_token){
+        const result = await this.getResource('/hero/'+id, 'GET', api_token);
         console.log(result);
         return result;
     }
@@ -87,6 +101,26 @@ export default class DataProvider{
     }
     async reopenQuest(id, api_token){
         const result = await this.getResource('/quest/'+id+'/reopen', 'PUT', api_token);
+        console.log(result);
+        return result;
+    }
+    async editHero (params, api_token){
+        const result = await this.getResource('/hero', 'PUT', api_token, params);
+        console.log(result);
+        return result;
+    }
+    async editGang (id, params, api_token){
+        const result = await this.getResource('/gang/'+id, 'PUT', api_token, params);
+        console.log(result);
+        return result;
+    }
+    async editQuest (id, params, api_token){
+        const result = await this.getResource('/quest/'+id, 'PUT', api_token, params);
+        console.log(result);
+        return result;
+    }
+    async info (api_token){
+        const result = await this.getResource('/info', 'GET', api_token);
         console.log(result);
         return result;
     }

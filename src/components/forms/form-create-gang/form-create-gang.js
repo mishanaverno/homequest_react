@@ -1,5 +1,5 @@
-import Form from '../form';
-import Validator from '../../lib/validator';
+import Form from '../../form';
+import Validator from '../../../lib/validator';
 
 export default class FormCreateGang extends Form{
     // input = {
@@ -42,7 +42,6 @@ export default class FormCreateGang extends Form{
         const { name } = this.state.data;
         let valid = true;
         let errors = {};
-        console.log(name);
         //name
         if(!validator.minLength(name, 3)){
             valid = false;

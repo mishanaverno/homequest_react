@@ -1,15 +1,22 @@
 import React from 'react';
+import { FRAMES } from '../app/app';
 
-const DashboardHeroInfo = ({ 
+const DashboardHeroInfo = ({
+        id,
         avatar, 
         name,
-        style
+        style,
+        openFrame
 }) => {
+    const onClick = (e) => {
+        openFrame(FRAMES.PROFILE, { id })
+    }
     return (
         <div className="dashboard-hero-info">
             <img
                 src={avatar}
                 alt={name}
+                onClick={onClick}
             />
             <div className="dashboard-hero-description">
                 <div className="dashboard-hero-description-top">

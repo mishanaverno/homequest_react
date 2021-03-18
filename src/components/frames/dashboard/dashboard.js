@@ -8,18 +8,7 @@ export default class Dashboard extends AppFrame {
     state = {
         gangs: []
     }
-    componentDidMount(){
-        this.updateData();
-    }
-    async updateData(){
-        const response = await this.props.getData();
-        if(response) {
-            const { data = {}} = response;
-            this.setState({
-                ...data
-            });
-        }
-    }
+    
     renderGangs(){
         const { openFrame } = this.props;
         const { style , id } = this.state;
@@ -42,15 +31,18 @@ export default class Dashboard extends AppFrame {
         const {
             avatar,
             name,
-            style
+            style,
+            id
         } = this.state;
         return this.frame(
             <div className="dashboard">
                 <div className="dashboard-header">
                     <DashboardHeroInfo 
+                        id={id}
                         avatar={avatar}
                         name={name}
                         style={style}
+                        openFrame={this.props.openFrame}
                     /> 
                 </div>
                 <div className="dashboard-container">

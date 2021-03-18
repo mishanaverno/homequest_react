@@ -1,7 +1,7 @@
 import React from 'react';
 import AppFrame from '../../app-frame';
 import { FRAMES } from '../../app/app';
-import FormJoin from '../../form-join';
+import FormJoin from '../../forms/form-join';
 
 
 

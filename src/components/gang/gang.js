@@ -19,7 +19,9 @@ export default class Gang extends React.Component {
         }
     }
     onGangTitleClick = (e) =>{
-        this.props.openFrame(FRAMES.GANG_DETAIL, this.props);
+        const { id } = this.props;
+
+        this.props.openFrame(FRAMES.GANG_DETAIL, { id });
     }
     onCreateQuestClick = (e) => {
         const props = {
